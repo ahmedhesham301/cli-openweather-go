@@ -9,10 +9,10 @@ import (
 )
 
 func main() {
-	// args := os.Args
+	args := os.Args
 	api_key := os.Getenv("OPENWEATHER_API_KEY")
-	city := "cairo"
-	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%v&appid=%v", city, api_key)
+	city := args[1]
+	url := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%v&appid=%v&units=metric", city, api_key)
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -33,5 +33,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%v", w.Coord)
+	fmt.Printf("Current temprutere in %s is %2.0f with %s\n",w.Name ,w.Main.Temp, w.Weather[0].Description)
 }
